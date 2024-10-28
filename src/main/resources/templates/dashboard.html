@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+    /* ... (style bez zmian) */
+</style>
+<body>
+<h1>M'Dash v1.0.0</h1>
+
+<form th:action="@{/dashboard}" method="get">
+    <label for="filterByName">Filter by name:</label>
+    <input type="text" id="filterByName" name="filterByName" th:value="${filterByName}" />
+
+    <label for="sortBy">Sort:</label>
+    <select id="sortBy" name="sortBy">
+        <option value="">None</option>
+        <option th:value="'name'" th:selected="${sortBy == 'name'}">Name</option>
+        <option th:value="'dealsCount'" th:selected="${sortBy == 'dealsCount'}">Deals count</option>
+    </select>
+
+    <button type="submit">Accept</button>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Deals count</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.dealsCount}"></td>
+    </tr>
+</table>
+
+<canvas id="userChart" width="400" height="200"></canvas>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const userNames = /*[[${userNames}]]*/ [];
+    const userDeals = /*[[${userDeals}]]*/ [];
+
+    const ctx = document.getElementById('userChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: userNames,
+            datasets: [{
+                label: 'Deals',
+                data: userDeals,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    /*]]>*/
+</script>
+
+</body>
+</html>

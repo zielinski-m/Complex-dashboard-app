@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Melon Dashboard</title>
+</head>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+
+  h1 {
+    text-align: center;
+    color: #2980b9;
+    margin-bottom: 30px;
+  }
+
+  form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Opcjonalnie: ograniczenie szerokości formularza */
+    margin: 0 auto; /* Opcjonalnie: wyśrodkowanie formularza */
+  }
+
+  div {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  button[type="submit"] {
+    background-color: #2980b9;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #27ae60;
+  }
+</style>
+<body>
+<h1>M'Dash v1.0.0</h1>
+<!-- Sekcja wyświetlania komunikatów o sukcesie -->
+<div th:if="${success}">
+  <p style="color: green;" th:text="${success}"></p>
+</div>
+
+<form th:action="@{/login}" method="post">
+  <div>
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="username" />
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" />
+  </div>
+  <div>
+    <button type="submit">Login</button>
+  </div>
+</form>
+</body>
+</html>
